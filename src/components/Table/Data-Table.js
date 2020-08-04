@@ -13,6 +13,11 @@ function DataTable(props) {
   const columns = React.useMemo(
     () => [
       {
+        Header: "Profile Picture",
+        accessor: "picture.medium",
+        Cell: (props) => <img src={props.value} alt={props.value} />,
+      },
+      {
         Header: "First Name",
         accessor: "name.first",
         sortType: "basic",
