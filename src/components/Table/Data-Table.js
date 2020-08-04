@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useFilters, useSortBy } from "react-table";
 
 function DataTable(props) {
   const data = React.useMemo(() => props.employees, [
@@ -10,32 +10,34 @@ function DataTable(props) {
       {
         Header: "First Name",
         accessor: "name.first",
-        sortType: 'basic',
+        sortType: "basic",
+        filter: (rows, id, filterType) =>
+          rows.filter((row) => row.values[id].startsWith(filterType)),
       },
       {
         Header: "Last Name",
         accessor: "name.last",
-        sortType: 'basic',
+        sortType: "basic",
       },
       {
         Header: "Email",
         accessor: "email",
-        sortType: 'basic',
+        sortType: "basic",
       },
       {
         Header: "Phone",
         accessor: "phone",
-        sortType: 'basic',
+        sortType: "basic",
       },
       {
         Header: "State",
         accessor: "location.state",
-        sortType: 'basic',
+        sortType: "basic",
       },
       {
         Header: "Age",
         accessor: "dob.age",
-        sortType: 'basic',
+        sortType: "basic",
       },
     ],
     []
@@ -47,7 +49,22 @@ function DataTable(props) {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy);
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        filters: [
+          {
+            id: "name.first",
+            value: "A",
+          },
+        ],
+      },
+    },
+    useFilters,
+    useSortBy
+  );
 
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
