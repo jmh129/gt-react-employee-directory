@@ -13,16 +13,18 @@ function App() {
       setEmployees(res.data.results);
     });
   }, []);
+  
   return (
     <div>
       <Router>
         <div>
           <Navbar />
-          <Route
+          <DataTable employees={employees} />
+          {/* <Route
             exact
             path="/"
             render={() => <DataTable employees={employees} />}
-          />
+          /> */}
         </div>
       </Router>
     </div>

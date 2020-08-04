@@ -1,29 +1,41 @@
 import React from "react";
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 
 function DataTable(props) {
-    const data = React.useMemo(
-        () => props.employees,
-        [props.employees]
-      )
+  const data = React.useMemo(() => props.employees, [
+    props.employees,
+  ]);
   const columns = React.useMemo(
     () => [
       {
-        Header: "Image",
-        accessor: "picture.thumbnail",
+        Header: "First Name",
+        accessor: "name.first",
+        sortType: 'basic',
       },
       {
-        Header: "Name",
-        accessor: "name",
-        Cell: (props) => (
-          <span>
-            {props.first} {props.last}
-          </span>
-        ),
+        Header: "Last Name",
+        accessor: "name.last",
+        sortType: 'basic',
       },
       {
         Header: "Email",
         accessor: "email",
+        sortType: 'basic',
+      },
+      {
+        Header: "Phone",
+        accessor: "phone",
+        sortType: 'basic',
+      },
+      {
+        Header: "State",
+        accessor: "location.state",
+        sortType: 'basic',
+      },
+      {
+        Header: "Age",
+        accessor: "dob.age",
+        sortType: 'basic',
       },
     ],
     []
@@ -35,7 +47,7 @@ function DataTable(props) {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data });
+  } = useTable({ columns, data }, useSortBy);
 
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
@@ -44,15 +56,20 @@ function DataTable(props) {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th
-                {...column.getHeaderProps()}
-                style={{
-                  borderBottom: "solid 3px red",
-                  background: "aliceblue",
-                  color: "black",
-                  fontWeight: "bold",
-                }}
+                {...column.getHeaderProps(
+                  column.getSortByToggleProps()
+                )}
               >
                 {column.render("Header")}
+                <span>
+                  +{" "}
+                  {column.isSorted
+                    ? column.isSortedDesc
+                      ? " 🔽"
+                      : " 🔼"
+                    : ""}
+                  +{" "}
+                </span>
               </th>
             ))}
           </tr>
