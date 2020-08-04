@@ -1,5 +1,8 @@
 import React from "react";
-import { useTable, useFilters, useSortBy } from "react-table";
+import { useTable, useSortBy } from "react-table";
+import { Table } from "reactstrap";
+// Had to take out useFilters for time being. It goes in react-table
+// useFilters,
 
 function DataTable(props) {
   const data = React.useMemo(() => props.employees, [
@@ -11,8 +14,8 @@ function DataTable(props) {
         Header: "First Name",
         accessor: "name.first",
         sortType: "basic",
-        filter: (rows, id, filterType) =>
-          rows.filter((row) => row.values[id].startsWith(filterType)),
+        // filter: (rows, id, filterType) =>
+        //   rows.filter((row) => row.values[id].startsWith(filterType)),
       },
       {
         Header: "Last Name",
@@ -62,12 +65,12 @@ function DataTable(props) {
         ],
       },
     },
-    useFilters,
+    // useFilters,
     useSortBy
   );
 
   return (
-    <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+    <Table striped bordered hover dark {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -79,13 +82,12 @@ function DataTable(props) {
               >
                 {column.render("Header")}
                 <span>
-                  +{" "}
+                  +/-{" "}
                   {column.isSorted
                     ? column.isSortedDesc
                       ? " 🔽"
                       : " 🔼"
-                    : ""}
-                  +{" "}
+                    : ""}{" "}
                 </span>
               </th>
             ))}
@@ -99,14 +101,7 @@ function DataTable(props) {
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
                 return (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip",
-                    }}
-                  >
+                  <td {...cell.getCellProps()}>
                     {cell.render("Cell")}
                   </td>
                 );
@@ -115,7 +110,7 @@ function DataTable(props) {
           );
         })}
       </tbody>
-    </table>
+    </Table>
   );
 }
 

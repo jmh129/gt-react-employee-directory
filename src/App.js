@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import API from "./utils/API";
@@ -20,11 +20,6 @@ function App() {
         <div>
           <Navbar />
           <DataTable employees={employees} />
-          {/* <Route
-            exact
-            path="/"
-            render={() => <DataTable employees={employees} />}
-          /> */}
         </div>
       </Router>
     </div>
