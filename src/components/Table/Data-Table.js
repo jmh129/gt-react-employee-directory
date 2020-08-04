@@ -4,13 +4,13 @@ import { useTable } from "react-table";
 function DataTable(props) {
     const data = React.useMemo(
         () => props.employees,
-        []
+        [props.employees]
       )
   const columns = React.useMemo(
     () => [
       {
         Header: "Image",
-        accessor: "picture.thumbnail", // accessor is the "key" in the data
+        accessor: "picture.thumbnail",
       },
       {
         Header: "Name",
@@ -23,7 +23,7 @@ function DataTable(props) {
       },
       {
         Header: "Email",
-        accessor: "email", // accessor is the "key" in the data
+        accessor: "email",
       },
     ],
     []
