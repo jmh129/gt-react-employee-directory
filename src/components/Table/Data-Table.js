@@ -4,6 +4,8 @@ import { Table } from "reactstrap";
 // Had to take out useFilters for time being. It goes in react-table
 // useFilters,
 
+// Reference: https://react-table.tanstack.com/docs/quick-start
+
 function DataTable(props) {
   const data = React.useMemo(() => props.employees, [
     props.employees,
@@ -57,10 +59,11 @@ function DataTable(props) {
       columns,
       data,
       initialState: {
+        // This is where you can enter input to filter on first name.
         filters: [
           {
             id: "name.first",
-            value: "A",
+            value: "",
           },
         ],
       },

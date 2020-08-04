@@ -23,7 +23,7 @@ Note: Make sure to run npm install as this application makes use of node package
 
 ### Usage
 
-To use the application, the user can visit the site and search the data returned from the API.
+To use the application, the user can visit the site and search the data returned from the API. The user can sort through the data in each column by pushing the +/- minus button in the header. 
 
 Link to site: https://jmh129.github.io/gt-react-employee-directory/
 
